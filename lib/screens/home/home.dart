@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:spending_tracker/models/account.dart';
 import 'package:spending_tracker/shared/account_info_tiles.dart';
 import 'package:spending_tracker/screens/home/home_tabs.dart';
+import 'package:spending_tracker/shared/add_tile.dart';
+import 'package:spending_tracker/shared/constants.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -12,10 +14,20 @@ class _HomeState extends State<Home> {
   bool home = true;
   bool goals = false;
   bool graphs = false;
+  double total;
   Widget tab;
+
+  void getTotalAmout() {
+    double newTotal = 0.00;
+    for (Account account in accountsList) {
+      newTotal += account.currentAmount;
+    }
+    setState(() => total = newTotal);
+  }
 
   @override
   Widget build(BuildContext context) {
+    getTotalAmout();
     getTab();
     return Scaffold(
       body: Container(
@@ -24,6 +36,7 @@ class _HomeState extends State<Home> {
           children: [
             Stack(
               children: [
+                // Round AppBar
                 Container(
                   padding: EdgeInsets.all(40),
                   constraints: BoxConstraints.expand(height: 175),
@@ -38,6 +51,7 @@ class _HomeState extends State<Home> {
                         bottomLeft: Radius.circular(30),
                         bottomRight: Radius.circular(30)),
                   ),
+                  // Avatar and UserName
                   child: Container(
                     padding: EdgeInsets.only(top: 25),
                     child: Row(
@@ -55,6 +69,7 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                 ),
+                // Balance Box
                 Container(
                   padding: EdgeInsets.all(30.0),
                   margin: EdgeInsets.only(top: 150.0, right: 20.0, left: 20.0),
@@ -66,6 +81,7 @@ class _HomeState extends State<Home> {
                       new BoxShadow(color: Colors.grey, blurRadius: 10.0),
                     ],
                   ),
+                  // My Balance and Pay/Transfer Buttons
                   child: Container(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -78,7 +94,7 @@ class _HomeState extends State<Home> {
                               style: TextStyle(fontSize: 20.0),
                             ),
                             Text(
-                              '\$xx,xxx.xx',
+                              '\$${total.toStringAsFixed(2).replaceAllMapped(reg, mathFunc)}',
                               style: TextStyle(fontSize: 20.0),
                             ),
                           ],
@@ -101,16 +117,8 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                 ),
-                Container(
-                  height: 300,
-                  margin: EdgeInsets.only(top: 400),
-                  padding: EdgeInsets.all(20.0),
-                  child: ListView(
-                    padding: EdgeInsets.only(left: 40.0),
-                    scrollDirection: Axis.horizontal,
-                    children: getAccountTiles(accountsList),
-                  ),
-                ),
+                // Tab
+                tab,
                 Container(
                   padding: EdgeInsets.only(
                       left: 20.0, bottom: 20.0, right: 20.0, top: 60.0),
@@ -120,7 +128,7 @@ class _HomeState extends State<Home> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      tab,
+                      // Floating Action Buttons
                       Container(
                         child: Center(
                           child: Row(
@@ -145,7 +153,7 @@ class _HomeState extends State<Home> {
                                 height: 80,
                                 width: 80,
                                 child: FloatingActionButton(
-                                  child: Icon(Icons.compare),
+                                  child: Icon(Icons.analytics),
                                   onPressed: () {
                                     setState(() {
                                       home = false;
@@ -174,7 +182,8 @@ class _HomeState extends State<Home> {
                             ],
                           ),
                         ),
-                      )
+                        height: MediaQuery.of(context).size.height * 0.88,
+                      ),
                     ],
                   ),
                 ),
@@ -203,6 +212,7 @@ class _HomeState extends State<Home> {
     for (Account account in accountList) {
       accountTiles.add(AccountInfoTile(account));
     }
+    accountTiles.add(AddTile());
     return accountTiles;
   }
 }

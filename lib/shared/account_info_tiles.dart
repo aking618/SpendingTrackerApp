@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spending_tracker/models/account.dart';
+import 'package:spending_tracker/shared/constants.dart';
 
 Widget AccountInfoTile(Account account) {
   return Container(
@@ -30,7 +31,8 @@ Widget AccountInfoTile(Account account) {
           ],
         ),
         Text(account.accountType),
-        Text(account.currentAmount.toString()),
+        Text(
+            '\$${account.currentAmount.toString().replaceAllMapped(reg, mathFunc)}'),
       ],
     ),
   );
