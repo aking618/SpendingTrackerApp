@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spending_tracker/models/account.dart';
 import 'package:spending_tracker/shared/account_info_tiles.dart';
+import 'package:spending_tracker/screens/home/home_tabs.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -8,8 +9,14 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  bool home = true;
+  bool goals = false;
+  bool graphs = false;
+  Widget tab;
+
   @override
   Widget build(BuildContext context) {
+    getTab();
     return Scaffold(
       body: Container(
         color: Colors.grey[100],
@@ -94,7 +101,6 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                 ),
-                //Next child of stack
                 Container(
                   height: 300,
                   margin: EdgeInsets.only(top: 400),
@@ -104,13 +110,92 @@ class _HomeState extends State<Home> {
                     scrollDirection: Axis.horizontal,
                     children: getAccountTiles(accountsList),
                   ),
-                )
+                ),
+                Container(
+                  padding: EdgeInsets.only(
+                      left: 20.0, bottom: 20.0, right: 20.0, top: 60.0),
+                  margin: EdgeInsets.only(top: 219),
+                  constraints: BoxConstraints.expand(
+                      height: MediaQuery.of(context).size.height - 219),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      tab,
+                      Container(
+                        child: Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Container(
+                                height: 80,
+                                width: 80,
+                                child: FloatingActionButton(
+                                  child: Icon(Icons.home),
+                                  onPressed: () {
+                                    setState(() {
+                                      home = true;
+                                      goals = false;
+                                      graphs = false;
+                                      getTab();
+                                    });
+                                  },
+                                ),
+                              ),
+                              Container(
+                                height: 80,
+                                width: 80,
+                                child: FloatingActionButton(
+                                  child: Icon(Icons.compare),
+                                  onPressed: () {
+                                    setState(() {
+                                      home = false;
+                                      goals = true;
+                                      graphs = false;
+                                      getTab();
+                                    });
+                                  },
+                                ),
+                              ),
+                              Container(
+                                height: 80,
+                                width: 80,
+                                child: FloatingActionButton(
+                                  child: Icon(Icons.multiline_chart),
+                                  onPressed: () {
+                                    setState(() {
+                                      home = false;
+                                      goals = false;
+                                      graphs = true;
+                                      getTab();
+                                    });
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
               ],
-            )
+            ),
           ],
         ),
       ),
     );
+  }
+
+  void getTab() {
+    if (home) {
+      tab = homeTab();
+    }
+    if (goals) {
+      tab = goalsTab();
+    }
+    if (graphs) {
+      tab = graphsTab();
+    }
   }
 
   List<Widget> getAccountTiles(List<Account> accountList) {
