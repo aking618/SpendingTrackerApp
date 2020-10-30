@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spending_tracker/screens/home.dart';
+import 'package:spending_tracker/screens/home/home.dart';
 
 void main() {
   runApp(MyApp());
