@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spending_tracker/models/account.dart';
 import 'package:spending_tracker/shared/account_info_tiles.dart';
 import 'package:spending_tracker/models/goal.dart';
+import 'package:spending_tracker/shared/add_tile.dart';
 import 'package:spending_tracker/shared/goal_tile.dart';
 
 Widget homeTab() {
@@ -31,7 +32,7 @@ Widget goalsTab() {
 }
 
 Widget graphsTab() {
-  return Text('Graphs');
+  return AddTile(30.0);
 }
 
 List<Widget> getAccountTiles(List<Account> accountList) {
@@ -39,6 +40,7 @@ List<Widget> getAccountTiles(List<Account> accountList) {
   for (Account account in accountList) {
     accountTiles.add(AccountInfoTile(account));
   }
+  accountTiles.add(AddTile(30.0));
   return accountTiles;
 }
 
@@ -47,5 +49,6 @@ List<Widget> getGoalTiles(List<Goal> goalList) {
   for (Goal goal in goalList) {
     goalTiles.add(GoalTile(goal));
   }
+  goalTiles.add(AddTile(150.0));
   return goalTiles;
 }

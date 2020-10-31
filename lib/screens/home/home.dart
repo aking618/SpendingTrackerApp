@@ -42,7 +42,7 @@ class _HomeState extends State<Home> {
                   constraints: BoxConstraints.expand(height: 175),
                   decoration: BoxDecoration(
                     gradient: new LinearGradient(
-                        colors: [Colors.blue[200], Colors.blue[400]],
+                        colors: [Colors.green[200], Colors.green[800]],
                         begin: const FractionalOffset(1.0, 1.0),
                         end: const FractionalOffset(0.2, 0.2),
                         stops: [0.0, 1.0],
@@ -139,6 +139,7 @@ class _HomeState extends State<Home> {
                                 width: 80,
                                 child: FloatingActionButton(
                                   child: Icon(Icons.home),
+                                  backgroundColor: Colors.green[700],
                                   onPressed: () {
                                     setState(() {
                                       home = true;
@@ -154,6 +155,7 @@ class _HomeState extends State<Home> {
                                 width: 80,
                                 child: FloatingActionButton(
                                   child: Icon(Icons.analytics),
+                                  backgroundColor: Colors.green[700],
                                   onPressed: () {
                                     setState(() {
                                       home = false;
@@ -169,6 +171,7 @@ class _HomeState extends State<Home> {
                                 width: 80,
                                 child: FloatingActionButton(
                                   child: Icon(Icons.multiline_chart),
+                                  backgroundColor: Colors.green[700],
                                   onPressed: () {
                                     setState(() {
                                       home = false;
@@ -205,15 +208,6 @@ class _HomeState extends State<Home> {
     if (graphs) {
       tab = graphsTab();
     }
-  }
-
-  List<Widget> getAccountTiles(List<Account> accountList) {
-    List<Widget> accountTiles = [];
-    for (Account account in accountList) {
-      accountTiles.add(AccountInfoTile(account));
-    }
-    accountTiles.add(AddTile());
-    return accountTiles;
   }
 }
 
