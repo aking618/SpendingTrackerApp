@@ -22,7 +22,7 @@ Widget AccountInfoTile(Account account) {
         Row(
           children: <Widget>[
             CircleAvatar(
-              backgroundImage: account.image,
+              backgroundImage: AssetImage('${account.image}'),
             ),
             Text(
               account.name,

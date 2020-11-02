@@ -4,7 +4,7 @@ class Account {
   String name;
   String accountType;
   double currentAmount;
-  AssetImage image;
+  String image;
 
   Account({this.name, this.accountType, this.currentAmount, this.image});
 }
@@ -24,10 +24,10 @@ Account testChecking = Account(
     name: "Arvest Check",
     accountType: "Checking",
     currentAmount: 486.26,
-    image: new AssetImage("assets/checking.png"));
+    image: "assets/checking.png");
 
 Account testSavings = Account(
     name: "Arvest Savings",
     accountType: "Savings",
     currentAmount: 10549.32,
-    image: new AssetImage("assets/savings.png"));
+    image: "assets/savings.png");

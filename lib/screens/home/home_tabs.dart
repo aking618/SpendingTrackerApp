@@ -8,7 +8,7 @@ import 'package:spending_tracker/shared/goal_tile.dart';
 Widget homeTab() {
   return Container(
     height: 300,
-    margin: EdgeInsets.only(top: 400),
+    margin: EdgeInsets.only(top: 320),
     padding: EdgeInsets.all(20.0),
     child: ListView(
       padding: EdgeInsets.only(left: 40.0),
@@ -20,8 +20,8 @@ Widget homeTab() {
 
 Widget goalsTab() {
   return Container(
-    height: 450,
-    margin: EdgeInsets.only(top: 400),
+    height: 350,
+    margin: EdgeInsets.only(top: 320),
     padding: EdgeInsets.all(20.0),
     child: ListView(
       padding: EdgeInsets.only(left: 40.0),

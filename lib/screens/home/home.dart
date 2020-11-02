@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spending_tracker/models/account.dart';
+import 'package:spending_tracker/services/auth.dart';
 import 'package:spending_tracker/shared/account_info_tiles.dart';
 import 'package:spending_tracker/screens/home/home_tabs.dart';
 import 'package:spending_tracker/shared/add_tile.dart';
@@ -11,6 +12,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final AuthService _auth = AuthService();
+
   bool home = true;
   bool goals = false;
   bool graphs = false;
@@ -56,9 +59,14 @@ class _HomeState extends State<Home> {
                     padding: EdgeInsets.only(top: 25),
                     child: Row(
                       children: [
-                        CircleAvatar(
-                          backgroundColor: Colors.white,
-                          radius: 25.0,
+                        InkWell(
+                          onTap: () async {
+                            _auth.signOut();
+                          },
+                          child: CircleAvatar(
+                            backgroundColor: Colors.white,
+                            radius: 25.0,
+                          ),
                         ),
                         SizedBox(width: 20.0),
                         Text(
@@ -119,75 +127,70 @@ class _HomeState extends State<Home> {
                 ),
                 // Tab
                 tab,
+                // Floating Action Button
                 Container(
                   padding: EdgeInsets.only(
                       left: 20.0, bottom: 20.0, right: 20.0, top: 60.0),
-                  margin: EdgeInsets.only(top: 219),
-                  constraints: BoxConstraints.expand(
-                      height: MediaQuery.of(context).size.height - 219),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      // Floating Action Buttons
-                      Container(
-                        child: Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              Container(
-                                height: 80,
-                                width: 80,
-                                child: FloatingActionButton(
-                                  child: Icon(Icons.home),
-                                  backgroundColor: Colors.green[700],
-                                  onPressed: () {
-                                    setState(() {
-                                      home = true;
-                                      goals = false;
-                                      graphs = false;
-                                      getTab();
-                                    });
-                                  },
-                                ),
+                  child: Container(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Container(
+                              height: 80,
+                              width: 80,
+                              child: FloatingActionButton(
+                                child: Icon(Icons.home),
+                                backgroundColor: Colors.green[700],
+                                onPressed: () {
+                                  setState(() {
+                                    home = true;
+                                    goals = false;
+                                    graphs = false;
+                                    getTab();
+                                  });
+                                },
                               ),
-                              Container(
-                                height: 80,
-                                width: 80,
-                                child: FloatingActionButton(
-                                  child: Icon(Icons.analytics),
-                                  backgroundColor: Colors.green[700],
-                                  onPressed: () {
-                                    setState(() {
-                                      home = false;
-                                      goals = true;
-                                      graphs = false;
-                                      getTab();
-                                    });
-                                  },
-                                ),
+                            ),
+                            Container(
+                              height: 80,
+                              width: 80,
+                              child: FloatingActionButton(
+                                child: Icon(Icons.block),
+                                backgroundColor: Colors.green[700],
+                                onPressed: () {
+                                  setState(() {
+                                    home = false;
+                                    goals = true;
+                                    graphs = false;
+                                    getTab();
+                                  });
+                                },
                               ),
-                              Container(
-                                height: 80,
-                                width: 80,
-                                child: FloatingActionButton(
-                                  child: Icon(Icons.multiline_chart),
-                                  backgroundColor: Colors.green[700],
-                                  onPressed: () {
-                                    setState(() {
-                                      home = false;
-                                      goals = false;
-                                      graphs = true;
-                                      getTab();
-                                    });
-                                  },
-                                ),
+                            ),
+                            Container(
+                              height: 80,
+                              width: 80,
+                              child: FloatingActionButton(
+                                child: Icon(Icons.multiline_chart),
+                                backgroundColor: Colors.green[700],
+                                onPressed: () {
+                                  setState(() {
+                                    home = false;
+                                    goals = false;
+                                    graphs = true;
+                                    getTab();
+                                  });
+                                },
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                        height: MediaQuery.of(context).size.height * 0.88,
-                      ),
-                    ],
+                      ],
+                    ),
+                    height: MediaQuery.of(context).size.height * 0.88,
                   ),
                 ),
               ],
